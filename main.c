@@ -152,17 +152,26 @@ int main() {
                 printf("Invalid operation\n");
                 return 1; // this will exit with an error code
         }
+        int a;
+        a = printf("Result: %lf\n", result);
 
-        printf("Result: %lf\n", result);
+        if (a < 0) {
+            perror("Error during printing");
+            return -1;
+        }
+
+
 
         // Ask if the user wants to continue
         printf("Do you want to perform another calculation? (y/n): ");
         while (scanf(" %c", &continueFlag) != 1) {
             printf("Invalid input, please enter 'y' or 'n': ");
-            buffer();
+            buffer();  // Clear invalid input
 
+            // Consume any remaining characters in the buffer including the newline
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
         }
-         buffer();
     }
 
     printf("Program terminated.\n");
