@@ -1,8 +1,17 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
+// Function to clear the input buffer
+void buffer(void)
+{
+    int c;
+    while ((c = getchar()) != EOF && c != '\n');
+}
+
 // Declare the function of addition
-double addition(double num1, double num2, double *result) {
+double addition(double num1, double num2, double *result)
+{
     // Check if num1 is NaN
     if (isnan(num1)) return 1;
 
@@ -17,14 +26,13 @@ double addition(double num1, double num2, double *result) {
 }
 
 // Declare the function of subtraction
-double subtraction(double a, double b, double *result) {
-    // Check if a is NaN
+double subtraction(double a, double b, double *result)
+{
     if (isnan(a)) return 1;
 
-    // Check if b is NaN
     if (isnan(b)) return 2;
 
-    // Check if result is NULL
+
     if (result == NULL) return 3;
 
     *result = a - b;
@@ -32,14 +40,12 @@ double subtraction(double a, double b, double *result) {
 }
 
 // Declare the function of multiplication
-double multiplication(double a, double b, double *result) {
-    // Check if a is NaN
+double multiplication(double a, double b, double *result)
+{
     if (isnan(a)) return 1;
 
-    // Check if b is NaN
     if (isnan(b)) return 2;
 
-    // Check if result is NULL
     if (result == NULL) return 3;
 
     *result = a * b;
@@ -47,74 +53,118 @@ double multiplication(double a, double b, double *result) {
 }
 
 // Declare the function of division
-double division(double a, double b, double *result) {
-    // Check if a is NaN
+double division(double a, double b, double *result)
+{
     if (isnan(a)) return 1;
 
-    // Check if b is NaN
     if (isnan(b)) return 2;
 
-    // Check if result is NULL
     if (result == NULL) return 3;
 
     // Check for division by zero
-    if (b == 0) {
-        return 2;
+    while (b == 0)
+    {
+        printf("You can't divide by 0, enter the number 2 again:\n ");
+        do {
+            int scanfResult = scanf("%lf", &b);
+            if (scanfResult != 1) {
+                printf("You can't enter words. Please re-enter the number 2: ");
+                buffer();
+            }
+        } while (b == 0);
     }
 
-    // Perform division and set the result
     *result = a / b;
-
     return 0;
 }
 
 int main() {
     double Num1, Num2, result;
     char operation;
+    char continueFlag = 'y';
 
-    // Get the input values
-    printf("Enter the first number: ");
-    scanf("%lf", &Num1);
+    while (continueFlag == 'y' || continueFlag == 'Y')
+    {
+        // Get the first number
+        printf("Enter Your First Number: ");
+        while (scanf("%lf", &Num1) != 1)
+        {
+            printf("Invalid input, please reenter a valid value: ");
+            buffer();
+        }
+        // buffer(); // Uncomment this line if you encounter issues with subsequent inputs
 
-    // Get the operation from the user
-    printf("Please enter your operation: ");
-    scanf(" %c", &operation);
+        // Get the operation from the user
+        while (1)
+        {
+            // Get the operation from the user
+            printf("Enter the operation (+, -, *, /): ");
+            if (scanf(" %c", &operation) == 1 && (operation == '+' || operation == '-' || operation == '*' || operation == '/')) {
+                break; // Exit the loop if a valid operation is entered
+            } else {
+                printf("Invalid input, please reenter a valid operation: ");
+                buffer();
+            }
+        }
+        // buffer(); // Uncomment this line if you encounter issues with subsequent inputs
 
-    printf("Enter the second number: ");
-    scanf("%lf", &Num2);
+        // Get the second number
+        printf("Enter Your Second Number: ");
+        while (scanf("%lf", &Num2) != 1)
+        {
+            printf("Invalid input, please reenter a valid value: ");
+            buffer();
+        }
+        // buffer(); // Uncomment this line if you encounter issues with subsequent inputs
 
-    // now let's make the switch case for the arithmetic operation
-    switch (operation) {
-        case '+':
-            if (addition(Num1, Num2, &result) != 0) {
-                printf("Error in addition function\n");
-                return 1;
-            }
-            break;
-        case '-':
-            if (subtraction(Num1, Num2, &result) != 0) {
-                printf("Error in subtraction function\n");
-                return 1;
-            }
-            break;
-        case '*':
-            if (multiplication(Num1, Num2, &result) != 0) {
-                printf("Error in multiplication function\n");
-                return 1;
-            }
-            break;
-        case '/':
-            if (division(Num1, Num2, &result) != 0) {
-                printf("Error in division function\n");
-                return 1;
-            }
-            break;
-        default:
-            printf("Invalid operation\n");
-            return 1; // this will exit with an error code
+        // now let's make the switch case for the arithmetic operation
+        switch (operation)
+        {
+            case '+':
+                if (addition(Num1, Num2, &result) != 0)
+                {
+                    printf("Error in addition function\n");
+                    return 1;
+                }
+                break;
+            case '-':
+                if (subtraction(Num1, Num2, &result) != 0)
+                {
+                    printf("Error in subtraction function\n");
+                    return 1;
+                }
+                break;
+            case '*':
+                if (multiplication(Num1, Num2, &result) != 0)
+                {
+                    printf("Error in multiplication function\n");
+                    return 1;
+                }
+                break;
+            case '/':
+                if (division(Num1, Num2, &result) != 0)
+                {
+                    printf("Error in division function\n");
+                    return 1;
+                }
+                break;
+            default:
+                printf("Invalid operation\n");
+                return 1; // this will exit with an error code
+        }
+
+        printf("Result: %lf\n", result);
+
+        // Ask if the user wants to continue
+        printf("Do you want to perform another calculation? (y/n): ");
+        while (scanf(" %c", &continueFlag) != 1) {
+            printf("Invalid input, please enter 'y' or 'n': ");
+            buffer();
+
+        }
+         buffer();
     }
 
-    printf("Result: %lf\n", result);
-
+    printf("Program terminated.\n");
     return 0;
 }
