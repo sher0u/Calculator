@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
 
 // Function to clear the input buffer
@@ -153,7 +152,8 @@ int main() {
                 return 1; // this will exit with an error code
         }
         int a;
-        a = printf("Result: %lf\n", result);
+        a = printf("Result: %g\n", result);// we use %g to print the integer if th ecorrect form and the float 
+                                                     // in the right form
 
         if (a < 0) {
             perror("Error during printing");
