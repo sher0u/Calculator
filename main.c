@@ -152,7 +152,7 @@ int main() {
                 return 1; // this will exit with an error code
         }
         int a;
-        a = printf("Result: %g\n", result);// we use %g to print the integer if th ecorrect form and the float 
+        a = printf("Result: %g\n", result);// we use %g to print the integer if th ecorrect form and the float
                                                      // in the right form
 
         if (a < 0) {
@@ -177,3 +177,9 @@ int main() {
     printf("Program terminated.\n");
     return 0;
 }
+
+/*_______________________________
+Yousfi abdelakder / github :@sher0u /mail : abdelkader.yousfi.pr@mail.ru
+_______________________________
+ * Tested to work.
+ */
