@@ -1,34 +1,71 @@
 #include <stdio.h>
-#include <stdbool.h>
+#include <math.h>
 
-// Declare the function of the addition
-double addition(double a, double b) {
-    return a + b;
+// Declare the function of addition
+double addition(double num1, double num2, double *result) {
+    // Check if num1 is NaN
+    if (isnan(num1)) return 1;
+
+    // Check if num2 is NaN
+    if (isnan(num2)) return 2;
+
+    // Check if result is NULL
+    if (result == NULL) return 3;
+
+    *result = num1 + num2;
+    return 0;
 }
 
-// Declare the fucntion of the Substraction
-double Substraction(double a, double b){
-    return a-b;
-}
-double multiplication(double a, double b) {
-    // Check if either of the arguments is 0
-    if (a == 0 || b == 0) {
-        return 0;
-    } else {
-        // Perform normal multiplication
-        return a * b;
-    }
+// Declare the function of subtraction
+double subtraction(double a, double b, double *result) {
+    // Check if a is NaN
+    if (isnan(a)) return 1;
+
+    // Check if b is NaN
+    if (isnan(b)) return 2;
+
+    // Check if result is NULL
+    if (result == NULL) return 3;
+
+    *result = a - b;
+    return 0;
 }
 
-// declare the ducntion of devision
-double devision (double a, double b){
-    if (b==0)
-    {
+// Declare the function of multiplication
+double multiplication(double a, double b, double *result) {
+    // Check if a is NaN
+    if (isnan(a)) return 1;
+
+    // Check if b is NaN
+    if (isnan(b)) return 2;
+
+    // Check if result is NULL
+    if (result == NULL) return 3;
+
+    *result = a * b;
+    return 0;
+}
+
+// Declare the function of division
+double division(double a, double b, double *result) {
+    // Check if a is NaN
+    if (isnan(a)) return 1;
+
+    // Check if b is NaN
+    if (isnan(b)) return 2;
+
+    // Check if result is NULL
+    if (result == NULL) return 3;
+
+    // Check for division by zero
+    if (b == 0) {
         return 2;
     }
-    else {
-        return a/b;
-    }
+
+    // Perform division and set the result
+    *result = a / b;
+
+    return 0;
 }
 
 int main() {
@@ -39,32 +76,45 @@ int main() {
     printf("Enter the first number: ");
     scanf("%lf", &Num1);
 
+    // Get the operation from the user
+    printf("Please enter your operation: ");
+    scanf(" %c", &operation);
+
     printf("Enter the second number: ");
     scanf("%lf", &Num2);
 
-    // Get the operation from th euser
-    printf("Please enter your operation");
-    scanf(" %c",&operation);
-    
-    // now lets make the switch case for th arthmethique operation 
+    // now let's make the switch case for the arithmetic operation
     switch (operation) {
         case '+':
-            result = addition(Num1, Num2);// Call the addition function
+            if (addition(Num1, Num2, &result) != 0) {
+                printf("Error in addition function\n");
+                return 1;
+            }
             break;
         case '-':
-            result= Substraction(Num1,Num2);     // call the fucntion of substraction
+            if (subtraction(Num1, Num2, &result) != 0) {
+                printf("Error in subtraction function\n");
+                return 1;
+            }
             break;
         case '*':
-            result= multiplication(Num1,Num2);     // display the result of the multplication
+            if (multiplication(Num1, Num2, &result) != 0) {
+                printf("Error in multiplication function\n");
+                return 1;
+            }
             break;
         case '/':
-            result= devision(Num1,Num2);        // display the result of the devision
+            if (division(Num1, Num2, &result) != 0) {
+                printf("Error in division function\n");
+                return 1;
+            }
             break;
         default:
-            printf("invalid operation");
+            printf("Invalid operation\n");
             return 1; // this will exit with an error code
-
     }
+
+    printf("Result: %lf\n", result);
 
     return 0;
 }
