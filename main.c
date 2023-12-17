@@ -94,14 +94,23 @@ int main() {
         // buffer(); // Uncomment this line if you encounter issues with subsequent inputs
 
         // Get the operation from the user
-        while (1)
-        {
-            // Get the operation from the user
-            printf("Enter the operation (+, -, *, /): ");
-            if (scanf(" %c", &operation) == 1 && (operation == '+' || operation == '-' || operation == '*' || operation == '/')) {
-                break; // Exit the loop if a valid operation is entered
+        bool isValidOperation = false;
+
+// Get the operation from the user
+        while (!isValidOperation) {
+            printf("Enter the operation (+, -, *, /, q to quit): ");
+            if (scanf(" %c", &operation) == 1) {
+                if (operation == 'q') {
+                    printf("Program terminated.\n");
+                    return 0;
+                } else if (operation == '+' || operation == '-' || operation == '*' || operation == '/') {
+                    isValidOperation = true; // Exit the loop if a valid operation is entered
+                } else {
+                    printf("Invalid input, please reenter a valid operation or 'q' to quit: ");
+                    buffer();
+                }
             } else {
-                printf("Invalid input, please reenter a valid operation: ");
+                printf("Invalid input, please reenter a valid operation or 'q' to quit: ");
                 buffer();
             }
         }
