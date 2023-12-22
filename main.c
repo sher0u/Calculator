@@ -81,6 +81,7 @@ int main() {
     double Num1, Num2, result;
     char operation;
     char continueFlag = 'y';
+    printf("Welcome !! For source Code Check My github @sher0u\n ");
 
     while (continueFlag == 'y' || continueFlag == 'Y')
     {
